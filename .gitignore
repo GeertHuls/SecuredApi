@@ -3,3 +3,4 @@ bin/
 *.suo
 obj/
 node_modules/
+bower_components/
