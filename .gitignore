@@ -1,6 +1,7 @@
 packages/
 bin/
 *.suo
+*.user
 obj/
 node_modules/
-bower_components/
+Components/
