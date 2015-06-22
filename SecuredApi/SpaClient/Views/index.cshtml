@@ -4,17 +4,40 @@
     <meta charset="utf-8" />
     <title>NancyApplication1</title>
 
-	<style type="text/css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
-		body {
-			text-align: center;
-		}
-
-	</style>
-
+    <link href="~/Content/Components/bootstrap-material-design/dist/css/roboto.min.css" rel="stylesheet" />
+    <link href="~/Content/Components/bootstrap-material-design/dist/css/material.min.css" rel="stylesheet" />
+    <link href="~/Content/Components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet" />
 </head>
 <body>
-	<img src="~/Content/nancy-logo.png" alt="Nancy logo" /><br />
-	This view was rendered using the Nancy Razor view engine
+
+
+    <h1>You can add your site here.</h1>
+    <h2>To ensure that material-design theme is working, check out the buttons below.</h2>
+    <h3 class="text-muted">If you can see the ripple effect on clicking them, then you are good to go!</h3>
+
+    <p class="bs-component">
+        <a href="javascript:void(0)" class="btn btn-default">Default</a>
+        <a href="javascript:void(0)" class="btn btn-primary">Primary</a>
+        <a href="javascript:void(0)" class="btn btn-success">Success</a>
+        <a href="javascript:void(0)" class="btn btn-info">Info</a>
+        <a href="javascript:void(0)" class="btn btn-warning">Warning</a>
+        <a href="javascript:void(0)" class="btn btn-danger">Danger</a>
+        <a href="javascript:void(0)" class="btn btn-link">Link</a>
+    </p>
+
+    <script src="~/Content/Components/jquery/dist/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <script src="~/Content/Components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+    <script src="~/Content/Components/bootstrap-material-design/dist/js/material.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // This command is used to initialize some elements and make them work properly
+            $.material.init();
+        });
+    </script>
 </body>
 </html>
