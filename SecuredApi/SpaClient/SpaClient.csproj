@@ -79,6 +79,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\app.js" />
+    <Content Include="app\views\home.html" />
     <Content Include="packages.config" />
     <Content Include="Views\index.cshtml" />
     <None Include="Web.Debug.config">
@@ -96,6 +98,10 @@
     <Compile Include="IndexModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app\controllers\" />
+    <Folder Include="app\scripts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

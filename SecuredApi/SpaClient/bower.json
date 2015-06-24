@@ -13,6 +13,8 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap-material-design": "~0.3.0"
+    "bootstrap-material-design": "~0.3.0",
+    "angular": "~1.4.1",
+    "angular-route": "~1.4.1"
   }
 }

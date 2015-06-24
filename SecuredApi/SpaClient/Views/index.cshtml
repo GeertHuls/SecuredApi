@@ -3,14 +3,16 @@
 <head>
     <meta charset="utf-8" />
     <title>OAuth2 demo</title>
+    <base href="/spaclient">
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="~/Content/Components/bootstrap-material-design/dist/css/roboto.min.css" rel="stylesheet" />
     <link href="~/Content/Components/bootstrap-material-design/dist/css/material.min.css" rel="stylesheet" />
-    <link href="~/Content/Components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet" />
+    <link href="~/Content/Components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet"/>
+
 </head>
-<body>
+<body ng-app="securedApi">
 
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -31,22 +33,7 @@
         </div>
     </nav>
 
-    <div class="container">
-
-        <div class="jumbotron">
-            <h2>OAuth2 demo</h2>
-
-            <p>This site is a tech demo for claims based authentication using OAuth2 Implicit grant flow.</p>
-
-            <p>The id server is built out of Thinktecture's IdentityServer3 library granting access to the resource owner using web api v2. The consumer of those resources is this site, a javascript spa client.</p>
-
-            <p>For detailed info please refer to the docs.</p>
-            <p>
-                <a class="btn btn-lg btn-primary" href="https://github.com/IdentityServer/IdentityServer3" target="blank" role="button">IdentityServer3 Docs &raquo;</a>
-            </p>
-        </div>
-
-    </div>
+    <div class="container" ng-view></div>
 
     <script src="~/Content/Components/jquery/dist/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -54,7 +41,11 @@
     <script src="~/Content/Components/bootstrap-material-design/dist/js/ripples.min.js"></script>
     <script src="~/Content/Components/bootstrap-material-design/dist/js/material.min.js"></script>
 
-    <script>
+    <script src="~/Content/Components/angular/angular.min.js"></script>
+    <script src="~/Content/Components/angular-route/angular-route.min.js"></script>
+
+    <script src="~/app/app.js"></script>
+<script>
         $(document).ready(function () {
             // This command is used to initialize some elements and make them work properly
             $.material.init();
