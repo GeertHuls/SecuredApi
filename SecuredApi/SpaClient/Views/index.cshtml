@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="securedApi">
 <head>
     <meta charset="utf-8" />
     <title>OAuth2 demo</title>
-    <base href="/spaclient">
+    <base href="@Request.Url.BasePath/" />
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
 
@@ -12,7 +12,7 @@
     <link href="~/Content/Components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet"/>
 
 </head>
-<body ng-app="securedApi">
+<body>
 
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">

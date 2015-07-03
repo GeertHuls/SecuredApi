@@ -3,10 +3,10 @@
 
     var app = angular.module("securedApi", ["ngRoute"]);
 
-    //use $location? http://stackoverflow.com/questions/13832529/how-to-config-routeprovider-and-locationprovider-in-angularjs
-    app.config(["$routeProvider", function ($routeProvider) {
+    app.config(["$locationProvider", "$routeProvider", function ($locationProvider, $routeProvider) {  
+
         $routeProvider.when("/", {
-            templateUrl: "/app/views/home.html"
+            templateUrl: "app/views/home.html"
         });
     }]);
 
