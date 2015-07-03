@@ -8,6 +8,15 @@
         $routeProvider.when("/", {
             templateUrl: "app/views/home.html"
         });
+
+        $routeProvider.when("/movies", {
+            templateUrl: "app/views/movies.html"
+        });
+
+        $routeProvider.when("/books", {
+            templateUrl: "app/views/books.html"
+        });
+
     }]);
 
 }());
