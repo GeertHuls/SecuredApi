@@ -11,7 +11,8 @@
         });
 
         $routeProvider.when("/movies", {
-            templateUrl: "app/views/movies.html"
+            templateUrl: "app/views/movies.html",
+            controller: "moviesController"
         });
 
         $routeProvider.when("/books", {
