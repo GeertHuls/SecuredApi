@@ -80,11 +80,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\common\movieResource.js" />
     <Content Include="app\views\books.html" />
     <Content Include="app\views\movies.html" />
     <Content Include="app\views\home.html" />
     <Content Include="packages.config" />
     <Content Include="Views\index.cshtml" />
+    <Content Include="app\common\common.services.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
