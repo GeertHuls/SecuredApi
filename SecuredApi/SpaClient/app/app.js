@@ -1,7 +1,8 @@
 ﻿(function () {
     "use strict";
 
-    var app = angular.module("securedApi", ["ngRoute"]);
+    var app = angular.module("securedApi",
+        ["common.services", "ngRoute"]);
 
     app.config(["$locationProvider", "$routeProvider",
         function ($locationProvider, $routeProvider) {

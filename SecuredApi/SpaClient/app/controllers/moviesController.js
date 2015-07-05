@@ -4,9 +4,12 @@
     angular
         .module("securedApi")
         .controller("moviesController",
-                     [moviesController]);
+                     ["movieResource",
+                         moviesController]);
 
-    function moviesController() {
-        console.log("hello from movies controller");
+    function moviesController(movieResource) {
+        movieResource.query(function (data) {
+            console.log(data);
+		});
     }
 }());
