@@ -1,3 +1,6 @@
 ﻿<div class="jumbotron">
     <h3>Book resource</h3>
+    <ul>
+        <li ng-repeat="book in vm.books">{{ book.id }} - {{ book.description }}</li>
+    </ul>
 </div>

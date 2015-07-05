@@ -81,6 +81,7 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\common\itemResource.js" />
+    <Content Include="app\controllers\booksController.js" />
     <Content Include="app\controllers\moviesController.js" />
     <Content Include="app\views\books.html" />
     <Content Include="app\views\movies.html" />

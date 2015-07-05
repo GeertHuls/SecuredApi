@@ -17,7 +17,8 @@
         });
 
         $routeProvider.when("/books", {
-            templateUrl: "app/views/books.html"
+            templateUrl: "app/views/books.html",
+            controller: "booksController as vm"
         });
 
     }]);
