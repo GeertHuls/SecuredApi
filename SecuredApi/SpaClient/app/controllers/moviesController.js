@@ -8,8 +8,10 @@
                          moviesController]);
 
     function moviesController(movieResource) {
+        var vm = this;
+
         movieResource.query(function (data) {
-            console.log(data);
-		});
+            vm.movies = data;
+        });
     }
 }());

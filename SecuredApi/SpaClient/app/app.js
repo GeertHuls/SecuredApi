@@ -13,7 +13,7 @@
 
         $routeProvider.when("/movies", {
             templateUrl: "app/views/movies.html",
-            controller: "moviesController"
+            controller: "moviesController as vm"
         });
 
         $routeProvider.when("/books", {
