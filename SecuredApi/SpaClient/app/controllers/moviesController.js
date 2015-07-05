@@ -4,14 +4,15 @@
     angular
         .module("securedApi")
         .controller("moviesController",
-                     ["movieResource",
+                     ["itemResource",
                          moviesController]);
 
-    function moviesController(movieResource) {
+    function moviesController(itemResource) {
         var vm = this;
 
-        movieResource.query(function (data) {
-            vm.movies = data;
-        });
+        itemResource.fetch('movies')
+        	.query(function (data) {
+	            vm.movies = data;
+	        });
     }
 }());
