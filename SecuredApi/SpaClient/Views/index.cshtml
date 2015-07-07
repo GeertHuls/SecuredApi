@@ -19,11 +19,11 @@
             <div class="navbar-header">
                 <div class="navbar-brand">Secured api demo</div>
             </div>
-            <div id="navbar" class="collapse navbar-collapse">
+            <div id="navbar" class="collapse navbar-collapse" ng-controller='navigationController as vm'>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#/">Home</a></li>
-                    <li><a href="#movies">Movies</a></li>
-                    <li><a href="#books">Books</a></li>
+                    <li ng-class="{active:vm.isActive('/')}"><a href="#/">Home</a></li>
+                    <li ng-class="{active:vm.isActive('/movies')}"><a href="#movies">Movies</a></li>
+                    <li ng-class="{active:vm.isActive('/books')}"><a href="#books">Books</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -49,6 +49,7 @@
     <script src="~/app/common/common.services.js"></script>
     <script src="~/app/common/itemResource.js"></script>
 
+    <script src="~/app/controllers/navigationController.js"></script>
     <script src="~/app/controllers/moviesController.js"></script>
     <script src="~/app/controllers/booksController.js"></script>
 
