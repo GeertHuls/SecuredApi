@@ -1,6 +1,6 @@
 using System;
 
-namespace ResourceOwner.Models
+namespace ResourceServer.Models
 {
     public class Item
     {

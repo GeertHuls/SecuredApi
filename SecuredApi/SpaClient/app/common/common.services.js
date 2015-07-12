@@ -6,6 +6,6 @@
 						["ngResource"])
 		.constant("appSettings",
 		{
-			serverPath: "https://secured.local:449/resourceowner"
+			serverPath: "https://secured.local:449/resourceserver"
 		});
 }());

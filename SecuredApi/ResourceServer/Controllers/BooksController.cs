@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http;
-using ResourceOwner.Models;
+using ResourceServer.Models;
 
-namespace ResourceOwner.Controllers
+namespace ResourceServer.Controllers
 {
     public class BooksController : ApiController
     {

@@ -1,10 +1,10 @@
 ﻿using Microsoft.Owin;
 using Owin;
-using ResourceOwner;
+using ResourceServer;
 
 [assembly: OwinStartup(typeof(Startup))]
 
-namespace ResourceOwner
+namespace ResourceServer
 {
     public class Startup
     {
