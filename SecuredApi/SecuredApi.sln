@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaClient", "SpaClient\SpaC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceServer", "ResourceServer\ResourceServer.csproj", "{13C35CAC-6997-4554-A795-901638F962B2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{83845254-DD37-4E12-A82C-8A749EB9AA8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{13C35CAC-6997-4554-A795-901638F962B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13C35CAC-6997-4554-A795-901638F962B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13C35CAC-6997-4554-A795-901638F962B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83845254-DD37-4E12-A82C-8A749EB9AA8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83845254-DD37-4E12-A82C-8A749EB9AA8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83845254-DD37-4E12-A82C-8A749EB9AA8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83845254-DD37-4E12-A82C-8A749EB9AA8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
