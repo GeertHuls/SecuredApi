@@ -27,7 +27,8 @@ namespace IdentityServer
                             Users.Get(),
                             Clients.Get(),
                             Scopes.Get()
-                        )
+                        ),
+                        CorsPolicy = CorsPolicy.AllowAll
                     });
             });
         }
