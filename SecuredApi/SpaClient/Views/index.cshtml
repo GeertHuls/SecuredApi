@@ -26,8 +26,8 @@
                     <li ng-class="{active:vm.isActive('/books')}"><a href="#books">Books</a></li>
                 </ul>
 
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Login</a></li>
+                <ul class="nav navbar-nav navbar-right" ng-controller="loginController as vm">
+                    <li><a ng-click="vm.test()">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -52,8 +52,9 @@
     <script src="~/app/controllers/navigationController.js"></script>
     <script src="~/app/controllers/moviesController.js"></script>
     <script src="~/app/controllers/booksController.js"></script>
+    <script src="~/app/controllers/loginController.js"></script>
 
-    <script>
+<script>
         $(document).ready(function () {
             // This command is used to initialize some elements and make them work properly
             $.material.init();

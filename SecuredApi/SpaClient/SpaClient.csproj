@@ -82,6 +82,7 @@
     <Content Include="app\app.js" />
     <Content Include="app\common\itemResource.js" />
     <Content Include="app\controllers\booksController.js" />
+    <Content Include="app\controllers\loginController.js" />
     <Content Include="app\controllers\moviesController.js" />
     <Content Include="app\controllers\navigationController.js" />
     <Content Include="app\views\books.html" />
