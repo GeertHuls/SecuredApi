@@ -23,6 +23,22 @@ namespace IdentityServer.Config
                     },
 
                     AccessTokenLifetime = 60,
+                },
+
+                new Client
+                {
+                    Enabled = true,
+                    ClientName = "implicit client example",
+                    ClientId = "implicitclient",
+                    Flow = Flows.Implicit,
+                    RequireConsent = true,
+
+                    RedirectUris = new List<string>
+                    {
+                        "http://localhost:672/index.html"
+                    },
+
+                    AccessTokenLifetime = 60,
                 }
             };
         }

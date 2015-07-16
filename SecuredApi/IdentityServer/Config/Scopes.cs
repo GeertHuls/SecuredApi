@@ -11,6 +11,7 @@ namespace IdentityServer.Config
             {
                 StandardScopes.OpenId,
                 StandardScopes.Profile,
+                StandardScopes.Email,
 
                 new Scope
                 {
@@ -38,7 +39,22 @@ namespace IdentityServer.Config
                         new ScopeClaim("role")
                     }
 
+                },
+
+                new Scope
+                {
+                    Name = "api1",
+                    DisplayName = "api1 scope",
+                    Type = ScopeType.Resource,
+                    Emphasize = false,
+                    Enabled = true,
+
+                    Claims = new List<ScopeClaim>
+                    {
+                        new ScopeClaim("role")
+                    }
                 }
+
             };
 
             return scopes;
