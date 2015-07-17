@@ -2,9 +2,11 @@
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer;
 using IdentityServer.Config;
+using IdentityServer3.Core.Configuration;
+using IdentityServer3.Core.Services;
+using IdentityServer3.Core.Services.Default;
 using Microsoft.Owin;
 using Owin;
-using Thinktecture.IdentityServer.Core.Configuration;
 
 [assembly: OwinStartup(typeof(Startup))]
 
@@ -16,20 +18,28 @@ namespace IdentityServer
         {
             app.Map("/core", idsrvApp =>
             {
-                idsrvApp.UseIdentityServer(
-                    new IdentityServerOptions
-                    {
-                        SiteName = "SecuredApi IdentityServer",
-                        IssuerUri = "https://securedapiidsrv/embedded",
-                        SigningCertificate = LoadCertificate(),
+                var identityServerServiceFactory = new IdentityServerServiceFactory()
+                    .UseInMemoryUsers(Users.Get())
+                    .UseInMemoryClients(Clients.Get())
+                    .UseInMemoryScopes(Scopes.Get());
 
-                        Factory = InMemoryFactory.Create(
-                            Users.Get(),
-                            Clients.Get(),
-                            Scopes.Get()
-                        ),
-                        CorsPolicy = CorsPolicy.AllowAll
-                    });
+                identityServerServiceFactory.CorsPolicyService =
+                    new Registration<ICorsPolicyService>(
+                        new DefaultCorsPolicyService
+                        {
+                            AllowAll = true
+                        });
+
+                var identityServerOptions = new IdentityServerOptions
+                {
+                    SiteName = "SecuredApi IdentityServer",
+                    IssuerUri = "https://securedapiidsrv/embedded",
+                    SigningCertificate = LoadCertificate(),
+
+                    Factory = identityServerServiceFactory
+                };
+
+                idsrvApp.UseIdentityServer(identityServerOptions);
             });
         }
 
