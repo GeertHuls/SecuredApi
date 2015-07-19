@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using IdentityServer3.Core;
 using IdentityServer3.Core.Models;
 
 namespace IdentityServer.Config
@@ -39,6 +40,15 @@ namespace IdentityServer.Config
                     },
 
                     AccessTokenLifetime = 60,
+
+                    AllowedScopes = new List<string>
+                    {
+                        Constants.StandardScopes.OpenId,
+                        Constants.StandardScopes.Profile,
+                        Constants.StandardScopes.Email,
+                        Constants.StandardScopes.Roles,
+                        "api1"
+                    },
                 }
             };
         }
