@@ -36,7 +36,10 @@ namespace IdentityServer.Config
 
                     RedirectUris = new List<string>
                     {
-                        "http://localhost:672/index.html"
+                        "http://localhost:672/index.html",
+                        "http://localhost:674/callback.html",
+                        "http://localhost:674/modal.html"
+
                     },
 
                     AccessTokenLifetime = 60,
@@ -48,7 +51,7 @@ namespace IdentityServer.Config
                         Constants.StandardScopes.Email,
                         Constants.StandardScopes.Roles,
                         "api1"
-                    },
+                    }
                 }
             };
         }
