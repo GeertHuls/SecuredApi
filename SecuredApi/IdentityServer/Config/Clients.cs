@@ -38,11 +38,11 @@ namespace IdentityServer.Config
                     {
                         "http://localhost:672/index.html",
                         "http://localhost:674/callback.html",
-                        "http://localhost:674/modal.html"
-
+                        "http://localhost:674/modal.html",
+                        "http://localhost:674/frame.html"
                     },
 
-                    AccessTokenLifetime = 60,
+                    AccessTokenLifetime = 70,
 
                     AllowedScopes = new List<string>
                     {
