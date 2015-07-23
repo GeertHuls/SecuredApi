@@ -23,7 +23,16 @@ namespace IdentityServer.Config
                         "https://secured.local:449/spaclient/#/cb"
                     },
 
-                    AccessTokenLifetime = 60,
+                    AccessTokenLifetime = 70,
+
+                    AllowedScopes = new List<string>
+                    {
+                        Constants.StandardScopes.OpenId,
+                        Constants.StandardScopes.Profile,
+                        Constants.StandardScopes.Email,
+                        Constants.StandardScopes.Roles,
+                        "securedapi"
+                    }
                 },
 
                 new Client
