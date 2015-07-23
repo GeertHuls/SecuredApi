@@ -81,6 +81,7 @@
   <ItemGroup>
     <Content Include="app\app.js" />
     <Content Include="app\common\itemResource.js" />
+    <Content Include="app\common\tokenManager.js" />
     <Content Include="app\controllers\booksController.js" />
     <Content Include="app\controllers\loginController.js" />
     <Content Include="app\controllers\moviesController.js" />
@@ -103,6 +104,8 @@
     <Content Include="Content\Components\bootstrap-material-design\dist\js\ripples.min.js" />
     <Content Include="Content\Components\jquery\dist\jquery.js" />
     <Content Include="Content\Components\jquery\dist\jquery.min.js" />
+    <Content Include="Content\Components\oidc-token-manager\dist\oidc-token-manager.js" />
+    <Content Include="Content\Components\oidc-token-manager\dist\oidc-token-manager.min.js" />
     <Content Include="packages.config" />
     <Content Include="Views\index.cshtml" />
     <Content Include="app\common\common.services.js" />

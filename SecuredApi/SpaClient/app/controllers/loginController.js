@@ -4,13 +4,14 @@
 	angular
 		.module('securedApi')
 		.controller('loginController',
-			[loginController]);
+			["tokenManager",
+                loginController]);
 
-	function loginController () {
+	function loginController(tokenManager) {
 		var vm = this;
 
 		vm.test = function () {
-			console.log('test');
+		    tokenManager.redirectForToken();
 		}
 	}
 })();
