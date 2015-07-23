@@ -88,9 +88,33 @@
     <Content Include="app\views\books.html" />
     <Content Include="app\views\movies.html" />
     <Content Include="app\views\home.html" />
+    <Content Include="Content\Components\angular-resource\angular-resource.js" />
+    <Content Include="Content\Components\angular-resource\angular-resource.min.js" />
+    <Content Include="Content\Components\angular-route\angular-route.js" />
+    <Content Include="Content\Components\angular-route\angular-route.min.js" />
+    <Content Include="Content\Components\angular\angular.js" />
+    <Content Include="Content\Components\angular\angular.min.js" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\css\material.min.css" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\css\ripples.min.css" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\css\roboto.min.css" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\js\material.js" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\js\material.min.js" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\js\ripples.js" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\js\ripples.min.js" />
+    <Content Include="Content\Components\jquery\dist\jquery.js" />
+    <Content Include="Content\Components\jquery\dist\jquery.min.js" />
     <Content Include="packages.config" />
     <Content Include="Views\index.cshtml" />
     <Content Include="app\common\common.services.js" />
+    <Content Include="Content\Components\jquery\dist\jquery.min.map" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\css\ripples.min.css.map" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\css\material.min.css.map" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\css\roboto.min.css.map" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\js\material.min.js.map" />
+    <Content Include="Content\Components\bootstrap-material-design\dist\js\ripples.min.js.map" />
+    <Content Include="Content\Components\angular\angular.min.js.map" />
+    <Content Include="Content\Components\angular-route\angular-route.min.js.map" />
+    <Content Include="Content\Components\angular-resource\angular-resource.min.js.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
