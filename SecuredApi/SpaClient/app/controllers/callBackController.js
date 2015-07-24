@@ -4,12 +4,24 @@
     angular
         .module("securedApi")
         .controller("callBackController",
-                     [callBackController]);
+                     ["$scope", "$routeParams", "$location", "tokenManager",
+                     	callBackController]);
 
-    function callBackController() {
-        var vm = this;
+    function callBackController($scope, $routeParams, $location, tokenManager) {
 
-        console.log("hello from callback!");
+		var hash = $routeParams.response;
+
+		tokenManager.processTokenCallbackAsync(hash).then(function() {
+            $location.url("/");
+            $scope.$apply();
+        }, function (error) {
+        	if(error && error.message) {
+        		$scope.error = error.message;
+        	} else {
+        		$scope.error = "An error has occured.";
+        	}
+        	$scope.$apply();
+		});
     }
 
 })();
