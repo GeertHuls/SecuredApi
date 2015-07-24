@@ -83,10 +83,12 @@
     <Content Include="app\common\itemResource.js" />
     <Content Include="app\common\tokenManager.js" />
     <Content Include="app\controllers\booksController.js" />
+    <Content Include="app\controllers\callBackController.js" />
     <Content Include="app\controllers\loginController.js" />
     <Content Include="app\controllers\moviesController.js" />
     <Content Include="app\controllers\navigationController.js" />
     <Content Include="app\views\books.html" />
+    <Content Include="app\views\message.html" />
     <Content Include="app\views\movies.html" />
     <Content Include="app\views\home.html" />
     <Content Include="Content\Components\angular-resource\angular-resource.js" />

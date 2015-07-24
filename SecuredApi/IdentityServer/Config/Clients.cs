@@ -20,7 +20,7 @@ namespace IdentityServer.Config
 
                     RedirectUris = new List<string>
                     {
-                        "https://secured.local:449/spaclient/#/cb"
+                        "https://secured.local:449/spaclient/#/cb/"
                     },
 
                     AccessTokenLifetime = 70,

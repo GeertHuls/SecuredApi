@@ -11,7 +11,7 @@
         var config = {
             client_id: "spaclient",
             authority: "https://secured.local:449/identityserver/core",
-            redirect_uri: window.location.protocol + "//" + window.location.host + $browser.baseHref() + "#/cb",
+            redirect_uri: window.location.protocol + "//" + window.location.host + $browser.baseHref() + "#/cb/",
             post_logout_redirect_uri: window.location.protocol + "//" + window.location.host,
             response_type: "id_token token",
             scope: "openid profile email securedapi",

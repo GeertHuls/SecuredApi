@@ -21,6 +21,11 @@
             controller: "booksController as vm"
         });
 
+        $routeProvider.when("/cb/:response", {
+           templateUrl: "app/views/message.html",
+           controller: "callBackController as vm"
+        });
+
     }]);
 
 }());
