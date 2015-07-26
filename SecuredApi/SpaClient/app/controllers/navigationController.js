@@ -3,10 +3,10 @@
 
     angular.module('securedApi')
         .controller('navigationController',
-            ['$location', 'tokenManager',
+            ['$location', 'authorizer',
                 navigationController]);
 
-    function navigationController ($location, tokenManager) {
+    function navigationController($location, authorizer) {
         var vm = this;
 
         vm.isActive = function (route) {
@@ -14,8 +14,6 @@
             return path === route;
         };
 
-        vm.isAuthorized = function () {
-            return !tokenManager.expired;
-        };
+        vm.isAuthorized = authorizer.isAuthorized;
     }
 })();

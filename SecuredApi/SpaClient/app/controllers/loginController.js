@@ -4,14 +4,20 @@
 	angular
 		.module('securedApi')
 		.controller('loginController',
-			["tokenManager",
+			["tokenManager", "authorizer", "$location", "$scope",
                 loginController]);
 
-	function loginController(tokenManager) {
+	function loginController(tokenManager, authorizer, $location, $scope) {
 		var vm = this;
 
-		vm.test = function () {
+		vm.login = function () {
 		    tokenManager.redirectForToken();
-		}
+		};
+
+		vm.logout = function () {
+			tokenManager.redirectForLogout();
+		};
+
+		vm.isAuthorized = authorizer.isAuthorized;
 	}
 })();
