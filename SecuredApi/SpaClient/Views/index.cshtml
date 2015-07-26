@@ -22,8 +22,8 @@
             <div id="navbar" class="collapse navbar-collapse" ng-controller='navigationController as vm'>
                 <ul class="nav navbar-nav">
                     <li ng-class="{active:vm.isActive('/')}"><a href="#/">Home</a></li>
-                    <li ng-class="{active:vm.isActive('/movies')}"><a href="#movies">Movies</a></li>
-                    <li ng-class="{active:vm.isActive('/books')}"><a href="#books">Books</a></li>
+                    <li ng-show="vm.isAuthorized()" ng-class="{active:vm.isActive('/movies')}"><a href="#movies">Movies</a></li>
+                    <li ng-show="vm.isAuthorized()" ng-class="{active:vm.isActive('/books')}"><a href="#books">Books</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right" ng-controller="loginController as vm">
