@@ -11,6 +11,14 @@
 		return {
 			isAuthorized : function () {
 				return !tokenManager.expired;
+			},
+
+			userName : function () {
+				if (tokenManager && tokenManager.profile) {
+					return tokenManager.profile.given_name
+						? tokenManager.profile.given_name
+						: null;
+				}
 			}
 		};
 	}

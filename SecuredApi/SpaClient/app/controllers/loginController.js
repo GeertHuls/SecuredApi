@@ -4,10 +4,10 @@
 	angular
 		.module('securedApi')
 		.controller('loginController',
-			["tokenManager", "authorizer", "$location", "$scope",
+			['$scope', 'tokenManager', 'authorizer', 'notifier',
                 loginController]);
 
-	function loginController(tokenManager, authorizer, $location, $scope) {
+	function loginController($scope, tokenManager, authorizer, notifier) {
 		var vm = this;
 
 		vm.login = function () {
@@ -19,5 +19,11 @@
 		};
 
 		vm.isAuthorized = authorizer.isAuthorized;
+
+		vm.userName = authorizer.userName();
+
+		notifier.subscribe($scope, 'user-profile-available', function () {
+			vm.userName = authorizer.userName();
+		})
 	}
 })();
