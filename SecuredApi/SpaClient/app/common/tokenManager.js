@@ -15,10 +15,10 @@
             post_logout_redirect_uri: window.location.protocol + "//" + window.location.host,
             response_type: "id_token token",
             scope: "openid profile email roles securedapi",
-            silent_redirect_uri: "",
-            silent_renew: false
+            silent_redirect_uri: window.location.protocol + "//" + window.location.host + $browser.baseHref() + "app/views/frame.html",
+            silent_renew: true
         };
-        
+
 		var manager = new OidcTokenManager(config);
 
 		manager.addOnTokenExpired(function () {
