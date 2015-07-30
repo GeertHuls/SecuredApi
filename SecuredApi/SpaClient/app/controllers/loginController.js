@@ -18,7 +18,7 @@
 			tokenManager.redirectForLogout();
 		};
 
-		vm.isAuthorized = authorizer.isAuthorized;
+		vm.isAuthenticated = authorizer.isAuthenticated;
 
 		vm.userName = authorizer.userName();
 
