@@ -3,10 +3,10 @@
 
     angular.module('securedApi')
         .controller('navigationController',
-            ['$location', 'authorizer',
+            ["$scope", '$location', 'authorizer', 'notifier',
                 navigationController]);
 
-    function navigationController($location, authorizer) {
+    function navigationController($scope, $location, authorizer, notifier) {
         var vm = this;
 
         vm.isActive = function (route) {
@@ -15,5 +15,10 @@
         };
 
         vm.isAuthorized = authorizer.isAuthorized;
+
+        notifier.subscribe($scope, 'token-expired', function () {
+            $location.url('/');
+            $scope.$apply();
+        })
     }
 })();

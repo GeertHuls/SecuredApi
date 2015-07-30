@@ -4,9 +4,9 @@
 	angular
 		.module("common.services")
 		.factory("tokenManager",
-				["$browser", tokenManager]);
+				["$browser", "notifier", tokenManager]);
 	
-	function tokenManager ($browser) {
+	function tokenManager ($browser, notifier) {
 		
         var config = {
             client_id: "spaclient",
@@ -20,6 +20,10 @@
         };
         
 		var manager = new OidcTokenManager(config);
+
+		manager.addOnTokenExpired(function () {
+			notifier.notify('token-expired');
+		});
 
 	    return manager;
 	}
