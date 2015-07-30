@@ -23,6 +23,7 @@
 
 		manager.addOnTokenExpired(function () {
 			notifier.notify('token-expired');
+			manager.removeToken();
 		});
 
 	    return manager;
