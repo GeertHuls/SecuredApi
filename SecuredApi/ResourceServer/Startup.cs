@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using IdentityServer3.AccessTokenValidation;
+using Microsoft.Owin;
 using Owin;
 using ResourceServer;
 
@@ -10,6 +11,13 @@ namespace ResourceServer
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseIdentityServerBearerTokenAuthentication(
+                new IdentityServerBearerTokenAuthenticationOptions
+                {
+                    Authority = "https://secured.local:449/identityserver/core",
+                    RequiredScopes = new[] { "securedapi" }
+                });
+
             app.UseWebApi(WebApiConfig.Register());
         }
     }

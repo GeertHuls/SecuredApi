@@ -5,6 +5,7 @@ using ResourceServer.Models;
 
 namespace ResourceServer.Controllers
 {
+    [Authorize]
     public class BooksController : ApiController
     {
         public IEnumerable<Item> Get()
