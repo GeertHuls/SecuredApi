@@ -12,7 +12,7 @@
             client_id: "spaclient",
             authority: "https://secured.local:449/identityserver/core",
             redirect_uri: window.location.protocol + "//" + window.location.host + $browser.baseHref() + "#/cb/",
-            post_logout_redirect_uri: window.location.protocol + "//" + window.location.host,
+            post_logout_redirect_uri: window.location.protocol + "//" + window.location.host + $browser.baseHref(),
             response_type: "id_token token",
             scope: "openid profile email roles securedapi",
             silent_redirect_uri: window.location.protocol + "//" + window.location.host + $browser.baseHref() + "app/views/frame.html",
