@@ -5,13 +5,17 @@
 		.module("common.services")
 		.factory("itemResource",
 				["$resource",
-				 "appSettings",
+				 "appSettings", "authorizer",
 				 	itemResource]);
 		
-		function itemResource ($resource, appSettings) {
-
+		function itemResource ($resource, appSettings, authorizer) {
 			var fetch = function (resource) {
-				return $resource(appSettings.serverPath + "/api/" + resource);
+			    return $resource(appSettings.serverPath + "/api/" + resource, null, {
+						'query': {
+							isArray: true,
+							headers: { 'Authorization': 'Bearer ' + authorizer.token }
+						}
+					});
 			}
 
 			return {

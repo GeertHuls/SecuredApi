@@ -9,12 +9,10 @@
 
 	function authorizer(tokenManager) {
 
-	    var isAuthenticated = function () {
-	        return !tokenManager.expired;
-	    };
-
-	    return {
-	        isAuthenticated : isAuthenticated,
+		var svc = {
+	        isAuthenticated : function () {
+		        return !tokenManager.expired;
+			},
 
 			isAuthorized : function (role) {
 
@@ -36,5 +34,13 @@
 				}
 			}
 		};
+
+		Object.defineProperty(svc, 'token', {
+		    get: function() {
+		        return tokenManager.access_token;
+		    }
+		});
+
+		return svc;
 	}
 })();
