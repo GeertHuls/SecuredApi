@@ -1,11 +1,14 @@
 ﻿(function () {
 	"use strict";
 
-	angular
+	var common = angular
 		.module("common.services",
-						["ngResource"])
-		.constant("appSettings",
-		{
-			serverPath: "https://secured.local:449/resourceserver"
-		});
+						["ngResource"]);
+
+	var model = document.getElementById("model").textContent.trim();
+	model = JSON.parse(model);
+
+	for (var key in model) {
+		common.constant(key, model[key]);
+	}
 }());
