@@ -115,6 +115,7 @@
     <Content Include="Content\Components\jquery\dist\jquery.min.js" />
     <Content Include="Content\Components\oidc-token-manager\dist\oidc-token-manager.js" />
     <Content Include="Content\Components\oidc-token-manager\dist\oidc-token-manager.min.js" />
+    <Content Include="Content\Site.css" />
     <Content Include="packages.config" />
     <Content Include="Views\index.cshtml" />
     <Content Include="app\common\common.services.js" />
