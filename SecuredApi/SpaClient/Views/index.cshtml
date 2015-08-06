@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<dynamic>
+<!DOCTYPE html>
 <html lang="en" ng-app="securedApi">
 <head>
     <meta charset="utf-8" />
@@ -37,7 +38,7 @@
     <div class="container" ng-view></div>
 
     <script id="model" type="application/json">
-        {"appSettings":{"serverPath":"https://secured.local:449/resourceserver"}}
+            @Html.Raw(@Model.appSettings)
     </script>
 
     <script src="~/Content/Components/jquery/dist/jquery.min.js"></script>
