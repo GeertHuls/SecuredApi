@@ -1,4 +1,6 @@
-﻿using IdentityServer3.AccessTokenValidation;
+﻿using System.Collections.Generic;
+using System.IdentityModel.Tokens;
+using IdentityServer3.AccessTokenValidation;
 using Microsoft.Owin;
 using Owin;
 using ResourceServer;
@@ -11,6 +13,10 @@ namespace ResourceServer
     {
         public void Configuration(IAppBuilder app)
         {
+            app.UseResourceAuthorization(new AuthorizationManager());
+
+            ResetClaimsMapPreveningDotNetClaimsUsage();
+
             app.UseIdentityServerBearerTokenAuthentication(
                 new IdentityServerBearerTokenAuthenticationOptions
                 {
@@ -19,6 +25,11 @@ namespace ResourceServer
                 });
 
             app.UseWebApi(WebApiConfig.Register());
+        }
+
+        private static void ResetClaimsMapPreveningDotNetClaimsUsage()
+        {
+            JwtSecurityTokenHandler.InboundClaimTypeMap = new Dictionary<string, string>();
         }
     }
 }

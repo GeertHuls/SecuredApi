@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Web.Http;
 using ResourceServer.Models;
+using Thinktecture.IdentityModel.WebApi;
 
 namespace ResourceServer.Controllers
 {
     [Authorize]
+    [ResourceAuthorize("Read", "Books")]
     public class BooksController : ApiController
     {
         public IEnumerable<Item> Get()
