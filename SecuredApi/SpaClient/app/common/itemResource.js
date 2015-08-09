@@ -10,7 +10,7 @@
 		
 		function itemResource ($resource, appSettings, authorizer) {
 			var fetch = function (resource) {
-			    return $resource(appSettings.serverPath + "/api/" + resource, null, {
+			    return $resource(appSettings.resourceServerUrl + "/api/" + resource, null, {
 						'query': {
 							isArray: true,
 							headers: { 'Authorization': 'Bearer ' + authorizer.token }

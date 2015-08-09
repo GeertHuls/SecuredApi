@@ -23,7 +23,7 @@ namespace SpaClient
             {
                 appSettings = new
                 {
-                    serverPath = ConfigurationManager.AppSettings["serverPath"]
+                    resourceServerUrl = ConfigurationManager.AppSettings["resourceServerUrl"]
                 }
             };
 
