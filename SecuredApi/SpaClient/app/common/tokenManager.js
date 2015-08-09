@@ -4,13 +4,14 @@
 	angular
 		.module("common.services")
 		.factory("tokenManager",
-				["$browser", "notifier", tokenManager]);
+				["$browser", "notifier", "appSettings", tokenManager]);
 	
-	function tokenManager ($browser, notifier) {
+	function tokenManager ($browser, notifier, appSettings) {
 		
+		console.log(appSettings);
         var config = {
             client_id: "spaclient",
-            authority: "https://secured.local:449/identityserver/core",
+            authority: appSettings.identityServerUrl,
             redirect_uri: window.location.protocol + "//" + window.location.host + $browser.baseHref() + "#/cb/",
             post_logout_redirect_uri: window.location.protocol + "//" + window.location.host + $browser.baseHref(),
             response_type: "id_token token",
