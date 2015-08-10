@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Configuration;
 using IdentityServer3.Core;
 using IdentityServer3.Core.Models;
 
@@ -8,8 +9,11 @@ namespace IdentityServer.Config
     {
         public static IEnumerable<Client> Get()
         {
+            var spaClientUrl = ConfigurationManager.AppSettings["spaClientUrl"];
+
             return new[]
             {
+ 
                 new Client
                 {
                     Enabled = true,
@@ -20,13 +24,13 @@ namespace IdentityServer.Config
 
                     RedirectUris = new List<string>
                     {
-                        "https://secured.local:449/spaclient/#/cb/",
-                        "https://secured.local:449/spaclient/app/views/frame.html"
+                        string.Format("{0}/#/cb/", spaClientUrl),
+                        string.Format("{0}/app/views/frame.html", spaClientUrl)
                     },
                     
                     PostLogoutRedirectUris = new List<string>
                     {
-                        "https://secured.local:449/spaclient/"  
+                        string.Format("{0}/", spaClientUrl),
                     },
 
                     AccessTokenLifetime = 70,
