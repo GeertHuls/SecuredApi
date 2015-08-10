@@ -21,10 +21,13 @@
 
 		var manager = new OidcTokenManager(config);
 
-		manager.addOnTokenExpired(function () {
-			notifier.notify('token-expired');
+		var tokenExpired = function () {
+			notifier.notify("token-expired");
 			manager.removeToken();
-		});
+		};
+
+		manager.addOnTokenExpired(tokenExpired);
+		manager.addOnSilentTokenRenewFailed(tokenExpired);
 
 	    return manager;
 	}
