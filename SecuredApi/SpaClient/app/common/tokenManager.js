@@ -7,8 +7,7 @@
 				["$browser", "notifier", "appSettings", tokenManager]);
 	
 	function tokenManager ($browser, notifier, appSettings) {
-		
-		console.log(appSettings);
+
         var config = {
             client_id: "spaclient",
             authority: appSettings.identityServerUrl,
