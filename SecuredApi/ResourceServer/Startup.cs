@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.IdentityModel.Tokens;
 using IdentityServer3.AccessTokenValidation;
 using Microsoft.Owin;
@@ -20,7 +21,7 @@ namespace ResourceServer
             app.UseIdentityServerBearerTokenAuthentication(
                 new IdentityServerBearerTokenAuthenticationOptions
                 {
-                    Authority = "https://secured.local:449/identityserver/core",
+                    Authority = ConfigurationManager.AppSettings["identityServerUrl"],
                     RequiredScopes = new[] { "securedapi" }
                 });
 

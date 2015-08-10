@@ -1,4 +1,5 @@
 using System.Web.Http;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace ResourceServer
@@ -18,7 +19,7 @@ namespace ResourceServer
             config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
 
             config.Formatters.JsonFormatter.SerializerSettings.Formatting
-                = Newtonsoft.Json.Formatting.Indented;
+                = Formatting.Indented;
 
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver
                 = new CamelCasePropertyNamesContractResolver();
