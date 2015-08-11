@@ -13,4 +13,4 @@ IdentityServer: https://secured.local:449/identityserver
 SpaClient: https://secured.local:449/spaclient
 ResourceServer: https://secured.local:449/resourceserver
 
-Otherwise chose whatever hosts you like.
+Otherwise choose whatever hosts you like.
