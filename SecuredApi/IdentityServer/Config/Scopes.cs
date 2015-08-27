@@ -39,7 +39,16 @@ namespace IdentityServer.Config
                         new ScopeClaim("role")
                     }
 
-                }
+                },
+
+                new Scope
+                {
+                    Name = "api1",
+                    DisplayName = "api1 scope",
+                    Type = ScopeType.Resource,
+                    Emphasize = false,
+                    Enabled = true
+                }                
             };
 
             return scopes;
