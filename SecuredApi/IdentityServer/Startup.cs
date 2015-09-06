@@ -58,8 +58,8 @@ namespace IdentityServer
 
         private void ConfigureIdentityProviders(IAppBuilder app, string signInAsType)
         {
-            ConfigureAzureAdProvider(app, signInAsType);
             ConfigureFacebookProvider(app, signInAsType);
+            ConfigureAzureAdProvider(app, signInAsType);
         }
 
         private static void ConfigureFacebookProvider(IAppBuilder app, string signInAsType)
