@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Facebook;
 using IdentityServer;
 using IdentityServer.Config;
 using IdentityServer.Helpers;
@@ -12,7 +13,6 @@ using IdentityServer3.Core.Services.Default;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.OpenIdConnect;
-using Newtonsoft.Json.Linq;
 using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -75,19 +75,27 @@ namespace IdentityServer
                 {
                     OnAuthenticated = context =>
                     {
-                        JToken lastName, firstName;
-                        if (context.User.TryGetValue("last_name", out lastName))
-                        {
-                            context.Identity.AddClaim(new Claim(
-                                Constants.ClaimTypes.FamilyName,
-                                lastName.ToString()));
-                        }
+                        var facebookClient = new FacebookClient(context.AccessToken);
+                        var facebookClaims = (JsonObject) facebookClient
+                            .Get("/me?fields=first_name,last_name,email");
 
-                        if (context.User.TryGetValue("first_name", out firstName))
+                        if (facebookClaims != null)
                         {
-                            context.Identity.AddClaim(new Claim(
-                                Constants.ClaimTypes.GivenName,
-                                firstName.ToString()));
+                            object firstName;
+                            if (facebookClaims.TryGetValue("first_name", out firstName))
+                            {
+                                context.Identity.AddClaim(new Claim(
+                                    Constants.ClaimTypes.GivenName,
+                                    firstName.ToString()));
+                            }
+
+                            object lastName;
+                            if (facebookClaims.TryGetValue("last_name", out lastName))
+                            {
+                                context.Identity.AddClaim(new Claim(
+                                    Constants.ClaimTypes.FamilyName,
+                                    lastName.ToString()));
+                            }
                         }
 
                         context.Identity.AddClaim(new Claim("role", "Books"));
@@ -97,7 +105,7 @@ namespace IdentityServer
                     }
                 }
             };
-            options.Scope.Add("public_profile");
+
             app.UseFacebookAuthentication(options);
         }
 
