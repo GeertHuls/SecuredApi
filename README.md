@@ -13,4 +13,4 @@ It will run out of the box using the following setup:
 - SpaClient: https://secured.local:449/spaclient.
 - ResourceServer: https://secured.local:449/resourceserver.
 
-Otherwise choose whatever hosts you like.
+Otherwise choose whatever hosts you like and adjust the app settings accordingly.
