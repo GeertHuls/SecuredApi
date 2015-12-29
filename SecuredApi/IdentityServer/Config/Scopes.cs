@@ -45,6 +45,7 @@ namespace IdentityServer.Config
                 {
                     Name = "api1",
                     DisplayName = "api1 scope",
+                    Description = "This claim isn't used anywhere in this solution, it is meant for another test project.",
                     Type = ScopeType.Resource,
                     Emphasize = false,
                     Enabled = true
