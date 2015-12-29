@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -98,6 +99,7 @@
     <Content Include="app\views\frame.html" />
     <Content Include="app\views\movies.html" />
     <Content Include="app\views\home.html" />
+    <Content Include="app\views\signout.html" />
     <Content Include="Content\Components\angular-resource\angular-resource.js" />
     <Content Include="Content\Components\angular-resource\angular-resource.min.js" />
     <Content Include="Content\Components\angular-route\angular-route.js" />

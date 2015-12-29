@@ -1,0 +1,31 @@
+﻿<div class="page-header">
+    <h1>
+        Logout
+        <small>You are now logged out with overridden logout page, illustrating single signout.</small>
+    </h1>
+    <div ng-show="model.redirectUrl">
+        Click <a ng-href="{{model.redirectUrl}}">here</a> to return to the
+        <span ng-bind="model.clientName"></span> application.
+    </div>
+    <iframe class="signout" ng-repeat="url in model.iFrameUrls" ng-src="{{url}}"></iframe>
+
+    <!-- Override the DefaultViewSerivce with this page, providing a signout url in a hidden iframe. -->
+    <iframe style="visibility: hidden" src="https://secured.local:449/spaclient/app/views/signout.html"></iframe>
+
+    <!--
+    For illustration purposes the singout url in the iframe is hard-coded in. In real world scenario's,
+    implement a custom IViewService so that the iframe's url can get its information from appsettings instead.
+
+    More information:
+    https://identityserver.github.io/Documentation/docsv2/advanced/customizingViews.html
+    -->
+
+    <!--
+    More signout pages to add until single sign out is completed and implemented in identity server.
+    http://openid.net/specs/openid-connect-logout-1_0.html
+    -->
+    <!--<iframe style="visibility: hidden" src="http://site1.io/signout.html"></iframe>-->
+    <!--<iframe style="visibility: hidden" src="http://site2.io/signout.html"></iframe>-->
+    <!--etc...-->
+
+</div>
