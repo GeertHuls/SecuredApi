@@ -33,6 +33,7 @@ namespace IdentityServer.Config
                         string.Format("{0}/", spaClientUrl),
                     },
 
+                    IdentityTokenLifetime = 70,
                     AccessTokenLifetime = 70,
 
                     AllowedScopes = new List<string>
