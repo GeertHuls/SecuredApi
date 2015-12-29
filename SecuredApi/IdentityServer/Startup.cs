@@ -132,6 +132,8 @@ namespace IdentityServer
                         {
                             n.AuthenticationTicket.Identity.AddClaim(role);
                         }
+
+                        await Task.FromResult(0);
                     }
                 }
             };
