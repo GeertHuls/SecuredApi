@@ -46,7 +46,8 @@ namespace IdentityServer
                     AuthenticationOptions = new AuthenticationOptions
                     {
                         IdentityProviders = ConfigureIdentityProviders,
-                        EnablePostSignOutAutoRedirect = true
+                        EnablePostSignOutAutoRedirect = true,
+                        PostSignOutAutoRedirectDelay = 2
                     },
 
                     Factory = identityServerServiceFactory
