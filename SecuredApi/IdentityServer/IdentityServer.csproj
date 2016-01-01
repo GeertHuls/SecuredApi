@@ -107,6 +107,7 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Certificates\secured.local.pfx" />
+    <Content Include="App_Data\userstore.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

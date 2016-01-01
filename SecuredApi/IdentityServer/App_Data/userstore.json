@@ -1,0 +1,34 @@
+[
+  {
+    "Subject": "fc817564-4bf8-4c63-ab81-62facda01dc7",
+    "UserName": "Geert",
+    "Password": "secret",
+    "IsActive": true,
+    "UserClaims": [
+      {
+        "Id": "904bd1f0-ac20-44de-87bb-c465baa165ba",
+        "Subject": "fc817564-4bf8-4c63-ab81-62facda01dc7",
+        "ClaimType": "given_name",
+        "ClaimValue": "Geert"
+      },
+      {
+        "Id": "27ac1a08-2116-4660-89b9-9e57e50c91ef",
+        "Subject": "fc817564-4bf8-4c63-ab81-62facda01dc7",
+        "ClaimType": "family_name",
+        "ClaimValue": "Huls"
+      },
+      {
+        "Id": "b5cafc5a-5e82-4466-a9a8-4dc9bd22c967",
+        "Subject": "fc817564-4bf8-4c63-ab81-62facda01dc7",
+        "ClaimType": "role",
+        "ClaimValue": "Books"
+      },
+      {
+        "Id": "20cb9a65-5111-4b75-97ce-f2028aed58a4",
+        "Subject": "fc817564-4bf8-4c63-ab81-62facda01dc7",
+        "ClaimType": "role",
+        "ClaimValue": "Movies"
+      }
+    ]
+  }
+]
