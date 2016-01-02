@@ -126,6 +126,8 @@
     <Compile Include="Helpers\TokenHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="UserStore\Model\User.cs" />
+    <Compile Include="UserStore\Model\UserClaim.cs" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
