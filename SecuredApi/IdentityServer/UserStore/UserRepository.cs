@@ -37,6 +37,14 @@ namespace IdentityServer.UserStore
             _users = result.ToList();
         }
 
+        public Task<User> GetUserAsync(string subject)
+        {
+            var user = _users.FirstOrDefault(u =>
+                string.Equals(u.Subject, subject, StringComparison.InvariantCultureIgnoreCase));
+
+            return Task.FromResult(user);
+        }
+
         public Task<User> GetUserAsync(string userName, string password)
         {
             var user = _users.FirstOrDefault(u => u.UserName == userName && u.Password == password);

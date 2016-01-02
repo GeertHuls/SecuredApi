@@ -6,6 +6,7 @@ namespace IdentityServer.UserStore
 {
     public interface IUserRepository
     {
+        Task<User> GetUserAsync(string subject);
         Task<User> GetUserAsync(string userName, string password);
     }
 }
