@@ -126,7 +126,6 @@
   <ItemGroup>
     <Compile Include="Config\Clients.cs" />
     <Compile Include="Config\Scopes.cs" />
-    <Compile Include="Config\Users.cs" />
     <Compile Include="Helpers\TokenHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

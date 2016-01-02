@@ -6,6 +6,7 @@ using Facebook;
 using IdentityServer;
 using IdentityServer.Config;
 using IdentityServer.Helpers;
+using IdentityServer.UserStore;
 using IdentityServer3.Core;
 using IdentityServer3.Core.Configuration;
 using IdentityServer3.Core.Services;
@@ -26,9 +27,11 @@ namespace IdentityServer
             app.Map("/core", idsrvApp =>
             {
                 var identityServerServiceFactory = new IdentityServerServiceFactory()
-                    .UseInMemoryUsers(Users.Get())
                     .UseInMemoryClients(Clients.Get())
                     .UseInMemoryScopes(Scopes.Get());
+
+                var customUserService = new CustomUserService();
+                identityServerServiceFactory.UserService = new Registration<IUserService>(resolver => customUserService);
 
                 identityServerServiceFactory.CorsPolicyService =
                     new Registration<ICorsPolicyService>(
