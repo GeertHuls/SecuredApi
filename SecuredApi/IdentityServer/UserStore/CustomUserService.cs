@@ -12,9 +12,16 @@ namespace IdentityServer.UserStore
 {
     public class CustomUserService : UserServiceBase
     {
+        private readonly IUserRepository _userRepository;
+
+        public CustomUserService()
+        {
+            _userRepository = UserRepositoryFactory.Create();
+        }
+
         public override async Task AuthenticateLocalAsync(LocalAuthenticationContext context)
         {
-            var user = await UserRepositoryFactory.Create()
+            var user = await _userRepository
                 .GetUserAsync(context.UserName, context.Password);
 
             context.AuthenticateResult = user == null
@@ -24,7 +31,7 @@ namespace IdentityServer.UserStore
 
         public override async Task GetProfileDataAsync(ProfileDataRequestContext context)
         {
-            var user = await UserRepositoryFactory.Create()
+            var user = await _userRepository
                 .GetUserAsync(context.Subject.GetSubjectId());
 
             var claims = new List<Claim>
@@ -43,6 +50,12 @@ namespace IdentityServer.UserStore
         private static bool ClaimIsRequestedOnly(ProfileDataRequestContext context, Claim claim)
         {
             return !context.AllClaimsRequested && context.RequestedClaimTypes.Contains(claim.Type);
+        }
+
+        public override async Task IsActiveAsync(IsActiveContext context)
+        {
+            var user =  await _userRepository.GetUserAsync(context.Subject.GetSubjectId());
+            context.IsActive = user != null && user.IsActive;
         }
     }
 }
