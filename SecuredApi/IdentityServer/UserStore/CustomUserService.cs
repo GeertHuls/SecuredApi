@@ -35,14 +35,14 @@ namespace IdentityServer.UserStore
                 .Union(
                     user.UserClaims.Select(c => new Claim(c.ClaimType, c.ClaimValue)))
                     
-                .Where(ClaimIsRequestedOnly(context));
+                .Where(c => ClaimIsRequestedOnly(context, c));
 
             context.IssuedClaims = claims;
         }
 
-        private static Func<Claim, bool> ClaimIsRequestedOnly(ProfileDataRequestContext context)
+        private static bool ClaimIsRequestedOnly(ProfileDataRequestContext context, Claim claim)
         {
-            return c => !context.AllClaimsRequested && context.RequestedClaimTypes.Contains(c.Type);
+            return !context.AllClaimsRequested && context.RequestedClaimTypes.Contains(claim.Type);
         }
     }
 }
