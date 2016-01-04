@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
@@ -50,7 +51,16 @@ namespace IdentityServer
                     {
                         IdentityProviders = ConfigureIdentityProviders,
                         EnablePostSignOutAutoRedirect = true,
-                        PostSignOutAutoRedirectDelay = 2
+                        PostSignOutAutoRedirectDelay = 2,
+                        LoginPageLinks = new List<LoginPageLink>()
+                        {
+                            new LoginPageLink()
+                            {
+                                Type= "createaccount",
+                                Text = "Create a new account",
+                                Href = "~/createuseraccount"
+                            }
+                        },
                     },
 
                     Factory = identityServerServiceFactory
