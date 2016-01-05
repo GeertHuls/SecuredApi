@@ -23,15 +23,14 @@ namespace IdentityServer.UserStore
 
         private void ReadUserStoreFile()
         {
-            var fileSystem = new PhysicalFileSystem("");
-
-            IFileInfo fileInfo;
-            if (!fileSystem.TryGetFileInfo(_jsonFileLocation, out fileInfo))
+            var jsonFile = GetJsonFile();
+            if (jsonFile == null)
             {
-                throw new InvalidOperationException($"Cannot find user store file: {_jsonFileLocation}");
+                _users = new List<User>();
+                return;
             }
 
-            var json = File.ReadAllText(fileInfo.PhysicalPath);
+            var json = File.ReadAllText(jsonFile.PhysicalPath);
             var result = JsonConvert.DeserializeObject<List<User>>(json);
 
             _users = result.ToList();
@@ -49,6 +48,26 @@ namespace IdentityServer.UserStore
         {
             var user = _users.FirstOrDefault(u => u.UserName == userName && u.Password == password);
             return Task.FromResult(user);
+        }
+
+        public void SaveUser(User newUser)
+        {
+            var jsonFile = GetJsonFile();
+            if (jsonFile == null) return;
+
+            _users.Add(newUser);
+            var json = JsonConvert.SerializeObject(_users);
+            File.WriteAllText(jsonFile.PhysicalPath, json);
+        }
+
+        private IFileInfo GetJsonFile()
+        {
+            var fileSystem = new PhysicalFileSystem("");
+
+            IFileInfo fileInfo;
+            fileSystem.TryGetFileInfo(_jsonFileLocation, out fileInfo);
+
+            return fileInfo;
         }
     }
 }

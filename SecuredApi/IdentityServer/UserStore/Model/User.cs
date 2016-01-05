@@ -9,11 +9,6 @@ namespace IdentityServer.UserStore.Model
         public string Password { get; set; }
         public bool IsActive { get; set; }
 
-        public IList<UserClaim> UserClaims { get; set; }
-
-        public User()
-        {
-            UserClaims = new List<UserClaim>();
-        }
+        public IList<UserClaim> UserClaims { get; } = new List<UserClaim>();
     }
 }

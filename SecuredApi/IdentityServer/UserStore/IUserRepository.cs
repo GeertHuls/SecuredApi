@@ -8,5 +8,6 @@ namespace IdentityServer.UserStore
     {
         Task<User> GetUserAsync(string subject);
         Task<User> GetUserAsync(string userName, string password);
+        void SaveUser(User newUser);
     }
 }
