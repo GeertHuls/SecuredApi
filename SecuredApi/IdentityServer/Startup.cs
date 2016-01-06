@@ -87,12 +87,12 @@ namespace IdentityServer
                 AppSecret = "XXXXXXXXXXXXXXXX",
                 Provider = new FacebookAuthenticationProvider
                 {
-                    OnAuthenticated = context =>
+                    OnAuthenticated = async context =>
                     {
                         var facebookClient = new FacebookClient(context.AccessToken);
-                        var facebookClaims = (JsonObject) facebookClient
-                            .Get("/me?fields=first_name,last_name,email");
-
+                        var facebookClaims = await facebookClient
+                            .GetTaskAsync<JsonObject>("/me?fields=first_name,last_name,email");
+                       
                         if (facebookClaims != null)
                         {
                             object firstName;
@@ -114,8 +114,6 @@ namespace IdentityServer
 
                         context.Identity.AddClaim(new Claim("role", "Books"));
                         context.Identity.AddClaim(new Claim("role", "Movies"));
-
-                        return Task.FromResult(0);
                     }
                 }
             };
