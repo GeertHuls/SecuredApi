@@ -28,6 +28,12 @@
         "Subject": "fc817564-4bf8-4c63-ab81-62facda01dc7",
         "ClaimType": "role",
         "ClaimValue": "Movies"
+      },
+      {
+        "Id": "a06115f0-e336-4b34-858d-375cfcef5d66",
+        "Subject": "fc817564-4bf8-4c63-ab81-62facda01dc7",
+        "ClaimType": "email",
+        "ClaimValue": "geert.huls82@gmail.com"
       }
     ]
   }

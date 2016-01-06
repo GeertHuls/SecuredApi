@@ -110,13 +110,20 @@ namespace IdentityServer
                                     Constants.ClaimTypes.FamilyName,
                                     lastName.ToString()));
                             }
-                        }
 
-                        context.Identity.AddClaim(new Claim("role", "Books"));
-                        context.Identity.AddClaim(new Claim("role", "Movies"));
+                            object email;
+                            if (facebookClaims.TryGetValue("email", out email))
+                            {
+                                context.Identity.AddClaim(new Claim(
+                                    Constants.ClaimTypes.Email,
+                                    email.ToString()));
+                            }
+                        }
                     }
                 }
             };
+
+            options.Scope.Add("email");
 
             app.UseFacebookAuthentication(options);
         }
