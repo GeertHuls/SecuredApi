@@ -201,6 +201,7 @@
     <Compile Include="UserStore\IUserRepository.cs" />
     <Compile Include="UserStore\Model\User.cs" />
     <Compile Include="UserStore\Model\UserClaim.cs" />
+    <Compile Include="UserStore\Model\UserLogin.cs" />
     <Compile Include="UserStore\UserRepository.cs" />
     <Compile Include="UserStore\UserRepositoryFactory.cs" />
   </ItemGroup>

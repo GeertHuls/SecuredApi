@@ -19,6 +19,27 @@ namespace IdentityServer.UserStore
             _userRepository = UserRepositoryFactory.Create();
         }
 
+        public override async Task AuthenticateExternalAsync(ExternalAuthenticationContext context)
+        {
+            var externalIdentity = context.ExternalIdentity;
+            var account = await _userRepository.GetUserForExternalProviderAsync(externalIdentity.Provider,
+                externalIdentity.ProviderId);
+
+            if (account != null)
+            {
+                context.AuthenticateResult = new AuthenticateResult(
+                account.Subject,
+                account.UserClaims.First(c => c.ClaimType == Constants.ClaimTypes.GivenName).ClaimValue,
+                account.UserClaims.Select(uc => new Claim(uc.ClaimType, uc.ClaimValue)),
+                authenticationMethod: Constants.AuthenticationMethods.External,
+                identityProvider: context.ExternalIdentity.Provider);
+
+                return;
+            }
+
+            throw new NotImplementedException("When no local account exists yet.");
+        }
+
         public override async Task AuthenticateLocalAsync(LocalAuthenticationContext context)
         {
             var user = await _userRepository

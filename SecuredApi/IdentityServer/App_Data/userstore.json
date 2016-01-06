@@ -35,6 +35,13 @@
         "ClaimType": "email",
         "ClaimValue": "geert.huls82@gmail.com"
       }
+    ],
+    "UserLogins": [
+      {
+        "Subject": "fc817564-4bf8-4c63-ab81-62facda01dc7",
+        "LoginProvider": "Facebook",
+        "ProviderKey": "1684537983614546"
+      }
     ]
   }
 ]

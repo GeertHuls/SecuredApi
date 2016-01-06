@@ -60,6 +60,16 @@ namespace IdentityServer.UserStore
             File.WriteAllText(jsonFile.PhysicalPath, json);
         }
 
+        public Task<User> GetUserForExternalProviderAsync(string loginProvider, string providerKey)
+        {
+            var user = _users
+                .FirstOrDefault(u => u.UserLogins.Any(ul =>
+                    string.Equals(ul.LoginProvider, loginProvider, StringComparison.InvariantCultureIgnoreCase) &&
+                    string.Equals(ul.ProviderKey, providerKey, StringComparison.InvariantCultureIgnoreCase)));
+
+            return Task.FromResult(user);
+        }
+
         private IFileInfo GetJsonFile()
         {
             var fileSystem = new PhysicalFileSystem("");

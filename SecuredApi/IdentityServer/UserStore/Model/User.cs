@@ -10,5 +10,6 @@ namespace IdentityServer.UserStore.Model
         public bool IsActive { get; set; }
 
         public IList<UserClaim> UserClaims { get; } = new List<UserClaim>();
+        public IList<UserLogin> UserLogins { get; } = new List<UserLogin>();
     }
 }
