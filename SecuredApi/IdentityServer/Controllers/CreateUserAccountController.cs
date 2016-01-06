@@ -54,6 +54,14 @@ namespace IdentityServer.Controllers
             {
                 Id = Guid.NewGuid().ToString(),
                 Subject = newUser.Subject,
+                ClaimType = Constants.ClaimTypes.Email,
+                ClaimValue = model.Email
+            });
+
+            newUser.UserClaims.Add(new UserClaim()
+            {
+                Id = Guid.NewGuid().ToString(),
+                Subject = newUser.Subject,
                 ClaimType = "role",
                 ClaimValue = model.Role
             });
