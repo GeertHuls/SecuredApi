@@ -52,12 +52,8 @@ namespace IdentityServer.UserStore
 
         public void SaveUser(User newUser)
         {
-            var jsonFile = GetJsonFile();
-            if (jsonFile == null) return;
-
             _users.Add(newUser);
-            var json = JsonConvert.SerializeObject(_users);
-            File.WriteAllText(jsonFile.PhysicalPath, json);
+            Save();
         }
 
         public Task<User> GetUserForExternalProviderAsync(string loginProvider, string providerKey)
@@ -68,6 +64,42 @@ namespace IdentityServer.UserStore
                     string.Equals(ul.ProviderKey, providerKey, StringComparison.InvariantCultureIgnoreCase)));
 
             return Task.FromResult(user);
+        }
+
+        public Task<User> GetUserByEmailAsync(string email)
+        {
+            var user = _users
+                .FirstOrDefault(u => u.UserClaims.Any(c => c.ClaimType == "email" &&
+                    string.Equals(c.ClaimValue, email, StringComparison.InvariantCultureIgnoreCase)));
+
+            return Task.FromResult(user);
+        }
+
+        public async Task AddUserLoginAsync(string subject, string loginProvider, string providerKey)
+        {
+            var user = await GetUserAsync(subject);
+            if (user == null)
+            {
+                throw new ArgumentException("User with given subject not found.", subject);
+            }
+
+            user.UserLogins.Add(new UserLogin
+                {
+                    Subject = subject,
+                    LoginProvider = loginProvider,
+                    ProviderKey = providerKey
+                });
+
+            Save();
+        }
+
+        private void Save()
+        {
+            var jsonFile = GetJsonFile();
+            if (jsonFile == null) return;
+
+            var json = JsonConvert.SerializeObject(_users);
+            File.WriteAllText(jsonFile.PhysicalPath, json);
         }
 
         private IFileInfo GetJsonFile()

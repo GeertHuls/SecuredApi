@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using IdentityServer.Config;
 using IdentityServer.UserStore.Model;
 
 namespace IdentityServer.UserStore
@@ -10,5 +9,7 @@ namespace IdentityServer.UserStore
         Task<User> GetUserAsync(string userName, string password);
         void SaveUser(User newUser);
         Task<User> GetUserForExternalProviderAsync(string loginProvider, string providerKey);
+        Task<User> GetUserByEmailAsync(string email);
+        Task AddUserLoginAsync(string subject, string loginProvider, string providerKey);
     }
 }

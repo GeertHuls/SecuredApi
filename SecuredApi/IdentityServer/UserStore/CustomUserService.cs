@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -37,7 +36,32 @@ namespace IdentityServer.UserStore
                 return;
             }
 
-            throw new NotImplementedException("When no local account exists yet.");
+            var emailClaim = context.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "email");
+            if (emailClaim == null)
+            {
+                context.AuthenticateResult = new AuthenticateResult("No email claim available.");
+
+                return;
+            }
+
+            var userWithMatchingEmailClaim = await _userRepository.GetUserByEmailAsync(emailClaim.Value);
+            if (userWithMatchingEmailClaim == null)
+            {
+                context.AuthenticateResult = new AuthenticateResult("No existing account found");
+                return;
+            }
+
+            await _userRepository.AddUserLoginAsync(
+                userWithMatchingEmailClaim.Subject,
+                context.ExternalIdentity.Provider,
+                context.ExternalIdentity.ProviderId);
+
+            context.AuthenticateResult = new AuthenticateResult(
+                   userWithMatchingEmailClaim.Subject,
+                   userWithMatchingEmailClaim.UserClaims.First(c => c.ClaimType == Constants.ClaimTypes.GivenName).ClaimValue,
+                   userWithMatchingEmailClaim.UserClaims.Select(uc => new Claim(uc.ClaimType, uc.ClaimValue)),
+                   authenticationMethod: Constants.AuthenticationMethods.External,
+                   identityProvider: context.ExternalIdentity.Provider);
         }
 
         public override async Task AuthenticateLocalAsync(LocalAuthenticationContext context)
