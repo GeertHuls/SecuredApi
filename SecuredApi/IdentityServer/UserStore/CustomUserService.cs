@@ -21,47 +21,47 @@ namespace IdentityServer.UserStore
         public override async Task AuthenticateExternalAsync(ExternalAuthenticationContext context)
         {
             var externalIdentity = context.ExternalIdentity;
+            context.AuthenticateResult = await GetAppropriateAuthenticationResult(externalIdentity);
+        }
+
+        private async Task<AuthenticateResult> GetAppropriateAuthenticationResult(ExternalIdentity externalIdentity)
+        {
             var account = await _userRepository.GetUserForExternalProviderAsync(externalIdentity.Provider,
                 externalIdentity.ProviderId);
 
             if (account != null)
             {
-                context.AuthenticateResult = new AuthenticateResult(
-                account.Subject,
-                account.UserClaims.First(c => c.ClaimType == Constants.ClaimTypes.GivenName).ClaimValue,
-                account.UserClaims.Select(uc => new Claim(uc.ClaimType, uc.ClaimValue)),
-                authenticationMethod: Constants.AuthenticationMethods.External,
-                identityProvider: context.ExternalIdentity.Provider);
-
-                return;
+                return new AuthenticateResult(
+                    account.Subject,
+                    account.UserClaims.First(c => c.ClaimType == Constants.ClaimTypes.GivenName).ClaimValue,
+                    account.UserClaims.Select(uc => new Claim(uc.ClaimType, uc.ClaimValue)),
+                    authenticationMethod: Constants.AuthenticationMethods.External,
+                    identityProvider: externalIdentity.Provider);
             }
 
-            var emailClaim = context.ExternalIdentity.Claims.FirstOrDefault(c => c.Type == "email");
+            var emailClaim = externalIdentity.Claims.FirstOrDefault(c => c.Type == "email");
             if (emailClaim == null)
             {
-                context.AuthenticateResult = new AuthenticateResult("No email claim available.");
-
-                return;
+                return new AuthenticateResult("No email claim available.");
             }
 
             var userWithMatchingEmailClaim = await _userRepository.GetUserByEmailAsync(emailClaim.Value);
             if (userWithMatchingEmailClaim == null)
             {
-                context.AuthenticateResult = new AuthenticateResult("No existing account found");
-                return;
+                return new AuthenticateResult("No existing account found");
             }
 
             await _userRepository.AddUserLoginAsync(
                 userWithMatchingEmailClaim.Subject,
-                context.ExternalIdentity.Provider,
-                context.ExternalIdentity.ProviderId);
+                externalIdentity.Provider,
+                externalIdentity.ProviderId);
 
-            context.AuthenticateResult = new AuthenticateResult(
+            return new AuthenticateResult(
                    userWithMatchingEmailClaim.Subject,
                    userWithMatchingEmailClaim.UserClaims.First(c => c.ClaimType == Constants.ClaimTypes.GivenName).ClaimValue,
                    userWithMatchingEmailClaim.UserClaims.Select(uc => new Claim(uc.ClaimType, uc.ClaimValue)),
                    authenticationMethod: Constants.AuthenticationMethods.External,
-                   identityProvider: context.ExternalIdentity.Provider);
+                   identityProvider: externalIdentity.Provider);
         }
 
         public override async Task AuthenticateLocalAsync(LocalAuthenticationContext context)
