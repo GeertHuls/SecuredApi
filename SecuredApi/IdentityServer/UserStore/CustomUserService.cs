@@ -33,12 +33,7 @@ namespace IdentityServer.UserStore
 
             if (account != null)
             {
-                return new AuthenticateResult(
-                    account.Subject,
-                    account.UserClaims.First(c => c.ClaimType == Constants.ClaimTypes.GivenName).ClaimValue,
-                    account.UserClaims.Select(uc => new Claim(uc.ClaimType, uc.ClaimValue)),
-                    authenticationMethod: Constants.AuthenticationMethods.External,
-                    identityProvider: externalIdentity.Provider);
+                return CreateSuccesFullAuthentication(externalIdentity, account);
             }
 
             var emailClaim = externalIdentity.Claims.FirstOrDefault(c => c.Type == "email");
@@ -53,17 +48,19 @@ namespace IdentityServer.UserStore
                 return CreateNewUserAndAuthenticate(externalIdentity);
             }
 
+            return await AuthenticateExistingUserWithNewExternalProvider(
+                externalIdentity, userWithMatchingEmailClaim);
+        }
+
+        private async Task<AuthenticateResult> AuthenticateExistingUserWithNewExternalProvider(ExternalIdentity externalIdentity,
+            User userWithMatchingEmailClaim)
+        {
             await _userRepository.AddUserLoginAsync(
                 userWithMatchingEmailClaim.Subject,
                 externalIdentity.Provider,
                 externalIdentity.ProviderId);
 
-            return new AuthenticateResult(
-                   userWithMatchingEmailClaim.Subject,
-                   userWithMatchingEmailClaim.UserClaims.First(c => c.ClaimType == Constants.ClaimTypes.GivenName).ClaimValue,
-                   userWithMatchingEmailClaim.UserClaims.Select(uc => new Claim(uc.ClaimType, uc.ClaimValue)),
-                   authenticationMethod: Constants.AuthenticationMethods.External,
-                   identityProvider: externalIdentity.Provider);
+            return CreateSuccesFullAuthentication(externalIdentity, userWithMatchingEmailClaim);
         }
 
         private AuthenticateResult CreateNewUserAndAuthenticate(ExternalIdentity externalIdentity)
@@ -72,12 +69,18 @@ namespace IdentityServer.UserStore
 
             _userRepository.SaveUser(newUser);
 
+            return CreateSuccesFullAuthentication(externalIdentity, newUser);
+        }
+
+        private static AuthenticateResult CreateSuccesFullAuthentication(ExternalIdentity externalIdentity,
+            User authenticatedUser)
+        {
             return new AuthenticateResult(
-               newUser.Subject,
-               newUser.UserClaims.First(c => c.ClaimType == Constants.ClaimTypes.GivenName).ClaimValue,
-               newUser.UserClaims.Select(uc => new Claim(uc.ClaimType, uc.ClaimValue)),
-               authenticationMethod: Constants.AuthenticationMethods.External,
-               identityProvider: externalIdentity.Provider);
+                authenticatedUser.Subject,
+                authenticatedUser.UserClaims.First(c => c.ClaimType == Constants.ClaimTypes.GivenName).ClaimValue,
+                authenticatedUser.UserClaims.Select(uc => new Claim(uc.ClaimType, uc.ClaimValue)),
+                authenticationMethod: Constants.AuthenticationMethods.External,
+                identityProvider: externalIdentity.Provider);
         }
 
         private static User ConfigureNewUser(ExternalIdentity externalIdentity)
