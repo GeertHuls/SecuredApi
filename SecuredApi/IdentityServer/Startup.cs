@@ -139,11 +139,43 @@ namespace IdentityServer
                 ClientId = "cdb67f7b-0a52-450b-a555-fe01ee12abc2",
                 RedirectUri = "https://secured.local:449/identityserver/core/aadcb",
                 PostLogoutRedirectUri = "https://secured.local:449/spaclient",
-                Scope = "openid profile email roles"
+                Scope = "openid profile email roles",
+                Notifications = new OpenIdConnectAuthenticationNotifications
+                {
+                    SecurityTokenValidated = n =>
+                    {
+                        var email = GetEmailAddress(n.ProtocolMessage.IdToken);
+                        if (!string.IsNullOrWhiteSpace(email))
+                        {
+                            var emailClaim = new Claim(Constants.ClaimTypes.Email, email);
+                            n.AuthenticationTicket.Identity.AddClaim(emailClaim);
+                        }
+
+                        return Task.FromResult(0);
+                    }
+                }
             };
 
             app.UseOpenIdConnectAuthentication(aad);
         }
+
+        private static string GetEmailAddress(string idToken)
+        {
+            var claims = TokenHelper.Decocde(idToken);
+            var email = claims.Value<string>(Constants.ClaimTypes.Email)
+                ?? claims.Value<string>("unique_name");
+
+            var valid = IsValid(email);
+            return valid ? email : null;
+        }
+
+        private static bool IsValid(string email)
+        {
+            var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            var match = regex.Match(email);
+            return match.Success;
+        }
+
         private X509Certificate2 LoadCertificate()
         {
             return new X509Certificate2(
