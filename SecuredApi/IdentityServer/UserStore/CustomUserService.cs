@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using IdentityServer.UserStore.Model;
 using IdentityServer3.Core;
 using IdentityServer3.Core.Extensions;
 using IdentityServer3.Core.Models;
@@ -42,13 +44,13 @@ namespace IdentityServer.UserStore
             var emailClaim = externalIdentity.Claims.FirstOrDefault(c => c.Type == "email");
             if (emailClaim == null)
             {
-                return new AuthenticateResult("No email claim available.");
+                return new AuthenticateResult("An email is claim required to authenticate.");
             }
 
             var userWithMatchingEmailClaim = await _userRepository.GetUserByEmailAsync(emailClaim.Value);
             if (userWithMatchingEmailClaim == null)
             {
-                return new AuthenticateResult("No existing account found");
+                return CreateNewUserAndAuthenticate(externalIdentity);
             }
 
             await _userRepository.AddUserLoginAsync(
@@ -62,6 +64,75 @@ namespace IdentityServer.UserStore
                    userWithMatchingEmailClaim.UserClaims.Select(uc => new Claim(uc.ClaimType, uc.ClaimValue)),
                    authenticationMethod: Constants.AuthenticationMethods.External,
                    identityProvider: externalIdentity.Provider);
+        }
+
+        private AuthenticateResult CreateNewUserAndAuthenticate(ExternalIdentity externalIdentity)
+        {
+            var newUser = ConfigureNewUser(externalIdentity);
+
+            _userRepository.SaveUser(newUser);
+
+            return new AuthenticateResult(
+               newUser.Subject,
+               newUser.UserClaims.First(c => c.ClaimType == Constants.ClaimTypes.GivenName).ClaimValue,
+               newUser.UserClaims.Select(uc => new Claim(uc.ClaimType, uc.ClaimValue)),
+               authenticationMethod: Constants.AuthenticationMethods.External,
+               identityProvider: externalIdentity.Provider);
+        }
+
+        private static User ConfigureNewUser(ExternalIdentity externalIdentity)
+        {
+            var newUser = new User
+            {
+                Subject = Guid.NewGuid().ToString(),
+                IsActive = true
+            };
+
+            var userLogin = new UserLogin
+            {
+                Subject = newUser.Subject,
+                LoginProvider = externalIdentity.Provider,
+                ProviderKey = externalIdentity.ProviderId
+            };
+            newUser.UserLogins.Add(userLogin);
+
+            GetProfileClaimsFromIdentity(externalIdentity, newUser)
+                .Union(CreateBasicPrivilegeForNewUser(newUser))
+                .ToList()
+                .ForEach(newUser.UserClaims.Add);
+
+            return newUser;
+        }
+
+        private static IEnumerable<UserClaim> GetProfileClaimsFromIdentity(ExternalIdentity externalIdentity, User newUser)
+        {
+            return externalIdentity
+                .Claims.Where(c =>
+                    c.Type.ToLowerInvariant() == Constants.ClaimTypes.GivenName ||
+                    c.Type.ToLowerInvariant() == Constants.ClaimTypes.FamilyName ||
+                    c.Type.ToLowerInvariant() == Constants.ClaimTypes.Email)
+
+                .Select(c => new UserClaim
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Subject = newUser.Subject,
+                    ClaimType = c.Type.ToLowerInvariant(),
+                    ClaimValue = c.Value
+                });
+        }
+
+        private static UserClaim[] CreateBasicPrivilegeForNewUser(User newUser)
+        {
+            return new[]
+            {
+                new UserClaim
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Subject = newUser.Subject,
+                    ClaimType = "role",
+                    ClaimValue = "Books"
+                }
+            };
         }
 
         public override async Task AuthenticateLocalAsync(LocalAuthenticationContext context)
