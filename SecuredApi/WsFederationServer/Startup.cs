@@ -2,6 +2,7 @@
 using System.Security.Cryptography.X509Certificates;
 using IdentityServer.WindowsAuthentication.Configuration;
 using Owin;
+using WsFederationServer.Services;
 
 namespace WsFederationServer
 {
@@ -14,7 +15,8 @@ namespace WsFederationServer
                 IdpRealm = "urn:win",
                 IdpReplyUrl = "https://secured.local:449/identity/was",
                 PublicOrigin = "https://secured.local:449/federationserver",
-                SigningCertificate = LoadCertificate()
+                SigningCertificate = LoadCertificate(),
+                CustomClaimsProvider = new AdditionalWindowsClaimsProvider()
             });
         }
 

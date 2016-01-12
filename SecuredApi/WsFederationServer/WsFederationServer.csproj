@@ -96,6 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AdditionalWindowsClaimsProvider.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <PropertyGroup>
