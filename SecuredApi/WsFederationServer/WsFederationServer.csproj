@@ -16,8 +16,8 @@
     <RootNamespace>WsFederationServer</RootNamespace>
     <AssemblyName>WsFederationServer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
-    <IISExpressSSLPort />
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44300</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
@@ -114,7 +114,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>54723</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://secured.local:449/federationserver</IISUrl>
+          <IISUrl>http://localhost:54723/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -16,6 +16,7 @@ using IdentityServer3.Core.Services.Default;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.OpenIdConnect;
+using Microsoft.Owin.Security.WsFederation;
 using Owin;
 
 [assembly: OwinStartup(typeof(Startup))]
@@ -73,6 +74,7 @@ namespace IdentityServer
 
         private void ConfigureIdentityProviders(IAppBuilder app, string signInAsType)
         {
+            ConfigureWsFederationServer(app, signInAsType);
             ConfigureFacebookProvider(app, signInAsType);
             ConfigureAzureAdProvider(app, signInAsType);
         }
@@ -175,6 +177,20 @@ namespace IdentityServer
             var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             var match = regex.Match(email);
             return match.Success;
+        }
+
+        private static void ConfigureWsFederationServer(IAppBuilder app, string signInAsType)
+        {
+            var windowsAuthentication = new WsFederationAuthenticationOptions
+            {
+                AuthenticationType = "windows",
+                Caption = "Windows",
+                SignInAsAuthenticationType = signInAsType,
+                MetadataAddress = "https://localhost:44300/",
+                Wtrealm = "urn:win"
+            };
+
+            app.UseWsFederationAuthentication(windowsAuthentication);
         }
 
         private X509Certificate2 LoadCertificate()

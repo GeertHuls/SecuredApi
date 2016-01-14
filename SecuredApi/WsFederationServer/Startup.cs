@@ -13,8 +13,8 @@ namespace WsFederationServer
             app.UseWindowsAuthenticationService(new WindowsAuthenticationOptions
             {
                 IdpRealm = "urn:win",
-                IdpReplyUrl = "https://secured.local:449/identity/was",
-                PublicOrigin = "https://secured.local:449/federationserver",
+                IdpReplyUrl = "https://secured.local:449/identityserver/core/was",
+                PublicOrigin = "https://localhost:44300/",
                 SigningCertificate = LoadCertificate(),
                 CustomClaimsProvider = new AdditionalWindowsClaimsProvider()
             });
