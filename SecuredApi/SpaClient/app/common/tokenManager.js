@@ -16,7 +16,8 @@
             response_type: "id_token token",
             scope: "openid profile email roles securedapi",
             silent_redirect_uri: window.location.protocol + "//" + window.location.host + $browser.baseHref() + "app/views/frame.html",
-            silent_renew: true
+            silent_renew: true,
+            acr_values: "2fa"
         };
 
 		var manager = new OidcTokenManager(config);

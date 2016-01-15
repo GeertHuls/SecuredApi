@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using IdentityServer.Services;
 using IdentityServer.UserStore.Model;
 using IdentityServer3.Core;
 using IdentityServer3.Core.Extensions;
@@ -63,7 +64,8 @@ namespace IdentityServer.UserStore
             return new AuthenticateResult("~/completeadditionalinformation", externalIdentity);
         }
 
-        private async Task<AuthenticateResult> AuthenticateExistingUserWithNewExternalProvider(ExternalIdentity externalIdentity,
+        private async Task<AuthenticateResult> AuthenticateExistingUserWithNewExternalProvider(
+            ExternalIdentity externalIdentity,
             User userWithMatchingEmailClaim)
         {
             await _userRepository.AddUserLoginAsync(
@@ -118,7 +120,8 @@ namespace IdentityServer.UserStore
             return newUser;
         }
 
-        private static IEnumerable<UserClaim> GetProfileClaimsFromIdentity(ExternalIdentity externalIdentity, User newUser)
+        private static IEnumerable<UserClaim> GetProfileClaimsFromIdentity(ExternalIdentity externalIdentity,
+            User newUser)
         {
             return externalIdentity
                 .Claims.Where(c =>
@@ -165,13 +168,13 @@ namespace IdentityServer.UserStore
                 .GetUserAsync(context.Subject.GetSubjectId());
 
             var claims = new List<Claim>
-                {
-                    new Claim(Constants.ClaimTypes.Subject, user.Subject),
-                }
+            {
+                new Claim(Constants.ClaimTypes.Subject, user.Subject),
+            }
 
                 .Union(
                     user.UserClaims.Select(c => new Claim(c.ClaimType, c.ClaimValue)))
-                    
+
                 .Where(c => ClaimIsRequestedOnly(context, c));
 
             context.IssuedClaims = claims;
@@ -184,8 +187,43 @@ namespace IdentityServer.UserStore
 
         public override async Task IsActiveAsync(IsActiveContext context)
         {
-            var user =  await _userRepository.GetUserAsync(context.Subject.GetSubjectId());
+            var user = await _userRepository.GetUserAsync(context.Subject.GetSubjectId());
             context.IsActive = user != null && user.IsActive;
+        }
+
+        public override async Task PostAuthenticateAsync(PostAuthenticationContext context)
+        {
+            var twoFactorRequired = await IsTwoFactorAuthenticationRequiredAsync(context);
+            if (!twoFactorRequired)
+            {
+                return;
+            }
+
+            var authenticatedUser = context.AuthenticateResult.User;
+            PerformTwoFactorAuthentication(context, authenticatedUser);
+        }
+
+        private Task<bool> IsTwoFactorAuthenticationRequiredAsync(PostAuthenticationContext context)
+        {
+            var twoFactorRequired = context.SignInMessage.AcrValues.Any(v => v == "2fa");
+
+            return Task.FromResult(twoFactorRequired);
+        }
+
+        private static void PerformTwoFactorAuthentication(PostAuthenticationContext context,
+            ClaimsPrincipal authenticatedUser)
+        {
+            var twoFactorTokenService = new TwoFactorTokenService();
+            if (twoFactorTokenService.HasVerifiedTwoFactorCode(authenticatedUser.GetSubjectId()))
+            {
+                return;
+            }
+
+            twoFactorTokenService.GenerateTwoFactorCodeFor(authenticatedUser.GetSubjectId());
+
+            context.AuthenticateResult =
+                new AuthenticateResult("~/twofactorauthentication", authenticatedUser.GetSubjectId(),
+                    authenticatedUser.GetName(), authenticatedUser.Claims);
         }
     }
 }

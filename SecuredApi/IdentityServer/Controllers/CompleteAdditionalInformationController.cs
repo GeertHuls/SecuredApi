@@ -1,20 +1,17 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using IdentityServer.Models;
 using IdentityServer.UserStore;
 using IdentityServer.UserStore.Model;
 using IdentityServer3.Core;
 using IdentityServer3.Core.Extensions;
-using Microsoft.Owin;
 
 namespace IdentityServer.Controllers
 {
-    public class CompleteAdditionalInformationController : Controller
+    public class CompleteAdditionalInformationController : PartialLoginControllerBase
     {
         public async Task<ActionResult> Index()
         {
@@ -92,24 +89,6 @@ namespace IdentityServer.Controllers
             });
 
             Save(newUser);
-        }
-
-        private async Task<ClaimsIdentity> EnsurePartialSignedUserFound()
-        {
-            var partialSignInUser = await GetOwinContext()
-                .Environment.GetIdentityServerPartialLoginAsync();
-
-            if (partialSignInUser == null)
-            {
-                throw new InvalidOperationException("Partial signed-in user not found.");
-            }
-
-            return partialSignInUser;
-        }
-
-        private IOwinContext GetOwinContext()
-        {
-            return Request.GetOwinContext();
         }
 
         private void Save(User newUser) =>

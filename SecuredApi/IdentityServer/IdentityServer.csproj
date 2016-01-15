@@ -178,6 +178,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\CompleteAdditionalInformation\Index.cshtml" />
+    <Content Include="Views\TwoFactorAuthentication\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -196,13 +197,17 @@
     <Compile Include="Config\Scopes.cs" />
     <Compile Include="Controllers\CompleteAdditionalInformationController.cs" />
     <Compile Include="Controllers\CreateUserAccountController.cs" />
+    <Compile Include="Controllers\PartialLoginControllerBase.cs" />
+    <Compile Include="Controllers\TwoFactorAuthenticationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\TokenHelper.cs" />
     <Compile Include="Models\CompleteAdditionalInformationModel.cs" />
     <Compile Include="Models\CreateUserAccountModel.cs" />
+    <Compile Include="Models\TwoFactorAuthenticationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TwoFactorTokenService.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="UserStore\CustomUserService.cs" />
     <Compile Include="UserStore\IUserRepository.cs" />
