@@ -1,0 +1,26 @@
+﻿@model IdentityServer.Models.CompleteAdditionalInformationModel
+
+@{
+    ViewBag.Title = "Complete additional information";
+}
+
+<h2>Complete additional information</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        <label for="First">First name</label>
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Last">Last name</label>
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <label for="Last">Your subscription</label>
+        @Html.DropDownListFor(m => m.Role, Model.Roles, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        <button class="btn btn-primary">Register</button>
+    </div>
+}

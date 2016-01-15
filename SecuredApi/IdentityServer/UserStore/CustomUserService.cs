@@ -43,6 +43,12 @@ namespace IdentityServer.UserStore
             }
 
             var userWithMatchingEmailClaim = await _userRepository.GetUserByEmailAsync(emailClaim.Value);
+
+            if (userWithMatchingEmailClaim == null && externalIdentity.Provider == "windows")
+            {
+                return AskWindowsAuthenticatedUserForAdditionalInfo(externalIdentity);
+            }
+
             if (userWithMatchingEmailClaim == null)
             {
                 return CreateNewUserAndAuthenticate(externalIdentity);
@@ -50,6 +56,11 @@ namespace IdentityServer.UserStore
 
             return await AuthenticateExistingUserWithNewExternalProvider(
                 externalIdentity, userWithMatchingEmailClaim);
+        }
+
+        private static AuthenticateResult AskWindowsAuthenticatedUserForAdditionalInfo(ExternalIdentity externalIdentity)
+        {
+            return new AuthenticateResult("~/completeadditionalinformation", externalIdentity);
         }
 
         private async Task<AuthenticateResult> AuthenticateExistingUserWithNewExternalProvider(ExternalIdentity externalIdentity,
