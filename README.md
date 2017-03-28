@@ -17,4 +17,5 @@ It will run out of the box using the following setup:
 Otherwise choose whatever hosts you like and adjust the app settings accordingly.
 
 Both the identity server and the ws federation server do require ssl, the others don't.
-The federation server runs in iis express because I could not manage to enable windows authentication in a real iis.
+The federation server project is configured to run in iis express but you could also run it in iis if you want.
+Just make sure the domain url remains localhost because it uses windows authentication and therefore a trusted domain like localhost is required.
